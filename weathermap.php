@@ -1,14 +1,14 @@
 <?php
-  date_default_timezone_set('Europe/London');
+  date_default_timezone_set('America/New_York');
   set_time_limit(0);
   
   function processWeathermaps()
   {
     $time = date('[H:m:s]');
     echo "{$time} Processing weathermaps\r\n";
-    $configs = glob('/configs/*.conf');
+    $configs = glob('/config/*.conf');
     foreach ($configs as $config) {
-      processWeathermap(substr($config, 9, -5));
+      processWeathermap(substr($config, 8, -5));
     }
   }
   
@@ -23,7 +23,7 @@
     if (!file_exists($path)) {
       mkdir($path);
     }
-    passthru("php /opt/network-weathermap/weathermap --config /configs/{$file}.conf --output {$path}/weathermap.png --htmloutput {$path}/index.html");
+    passthru("php /opt/weathermap/weathermap --config /config/{$file}.conf --output {$path}/weathermap.png --htmloutput {$path}/index.html");
     
     // Copy weathermap to archive
     if (!file_exists($path . '/archive/')) {
